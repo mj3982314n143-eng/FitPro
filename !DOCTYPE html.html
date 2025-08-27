@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPro - Complete Fitness Training Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .workout-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .calculator-input {
+            transition: all 0.3s ease;
+        }
+        .calculator-input:focus {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .auth-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-purple-600">FitPro</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-purple-600 transition-colors">Home</a>
+                    <a href="#workouts" class="text-gray-700 hover:text-purple-600 transition-colors">Workouts</a>
+                    <a href="#diet" class="text-gray-700 hover:text-purple-600 transition-colors">Diet Plans</a>
+                    <a href="#calculators" class="text-gray-700 hover:text-purple-600 transition-colors">Calculators</a>
+                    <a href="#shop" class="text-gray-700 hover:text-purple-600 transition-colors">Shop</a>
+                    <a href="#support" class="text-gray-700 hover:text-purple-600 transition-colors">Support</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="loginBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        Login
+                    </button>
+                    <button id="signupBtn" class="border border-purple-600 text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-600 hover:text-white transition-colors">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white pt-24 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">Transform Your Body, Transform Your Life</h1>
+                    <p class="text-xl mb-8">Complete fitness training platform with personalized workout plans, diet guidance, and professional support.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                            Start Free Trial
+                        </button>
+                        <button class="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                            View Membership
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/65bbfc98-8dff-408c-af08-771b0b7ef97f.png" alt="Diverse group of people exercising in modern gym with professional equipment and motivational atmosphere" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="auth-form rounded-xl p-8 max-w-md w-full relative">
+            <button id="closeAuth" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            
+            <div id="loginForm" class="hidden">
+                <h2 class="text-2xl font-bold text-center mb-6">Login to Your Account</h2>
+                <div class="space-y-4">
+                    <input type="email" placeholder="Email Address" class="w-full p-3 border rounded-lg calculator-input">
+                    <input type="password" placeholder="Password" class="w-full p-3 border rounded-lg calculator-input">
+                    <button class="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700">Login</button>
+                    <p class="text-center">
+                        <a href="#" class="text-purple-600 hover:underline">Forgot Password?</a>
+                    </p>
+                    <p class="text-center text-gray-600">
+                        Don't have an account? <a href="#" id="showSignup" class="text-purple-600 hover:underline">Sign Up</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="signupForm">
+                <h2 class="text-2xl font-bold text-center mb-6">Create Your Account</h2>
+                <div class="space-y-4">
+                    <input type="email" placeholder="Email Address" class="w-full p-3 border rounded-lg calculator-input">
+                    <input type="tel" placeholder="Phone Number" class="w-full p-3 border rounded-lg calculator-input">
+                    <input type="password" placeholder="Password" class="w-full p-3 border rounded-lg calculator-input">
+                    <button id="sendOtp" class="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700">Send OTP</button>
+                    
+                    <div id="otpSection" class="hidden">
+                        <input type="text" placeholder="Enter OTP" class="w-full p-3 border rounded-lg calculator-input">
+                        <button class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 mt-2">Verify & Create Account</button>
+                    </div>
+                    
+                    <p class="text-center text-gray-600">
+                        Already have an account? <a href="#" id="showLogin" class="text-purple-600 hover:underline">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Membership Banner -->
+    <section class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Lifetime Access for Only ₹499</h2>
+            <p class="text-xl mb-6">Unlock all features including personalized workout plans, diet guidance, calculators, and exclusive shopping discounts.</p>
+            <button class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Get Lifetime Membership
+            </button>
+        </div>
+    </section>
+
+    <!-- Workouts Section -->
+    <section id="workouts" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Comprehensive Workout Plans</h2>
+            <p class="text-gray-600 text-center mb-12">From beginner to advanced levels, including home workout options</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Beginner Workout -->
+                <div class="workout-card bg-white rounded-xl shadow-lg p-6 border border-gray-100 transition-all">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a242df8-5471-4fe5-84d2-f4982b163d20.png" alt="Beginner fitness routine with simple exercises and proper form demonstration in well-lit gym environment" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Beginner Program</h3>
+                    <p class="text-gray-600 mb-4">Perfect for those starting their fitness journey with basic exercises and gradual progression.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• 4 weeks program</li>
+                        <li>• 3 sessions per week</li>
+                        <li>• Video demonstrations</li>
+                        <li>• Progress tracking</li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">View Program</button>
+                </div>
+
+                <!-- Intermediate Workout -->
+                <div class="workout-card bg-white rounded-xl shadow-lg p-6 border border-gray-100 transition-all">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7ad5d24d-7515-42b9-a8a1-f8c2d2451a3f.png" alt="Intermediate weight training session with dumbbells and resistance equipment in professional gym setting" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Intermediate Program</h3>
+                    <p class="text-gray-600 mb-4">Build strength and endurance with more challenging exercises and increased intensity.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• 6 weeks program</li>
+                        <li>• 4 sessions per week</li>
+                        <li>• Advanced techniques</li>
+                        <li>• Performance analytics</li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">View Program</button>
+                </div>
+
+                <!-- Advanced Workout -->
+                <div class="workout-card bg-white rounded-xl shadow-lg p-6 border border-gray-100 transition-all">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/53312885-5eac-4271-8c24-4e98c3e847b2.png" alt="Advanced fitness training with heavy weights and specialized equipment for professional athletes" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Advanced Program</h3>
+                    <p class="text-gray-600 mb-4">For experienced individuals seeking maximum results with intensive training protocols.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• 8 weeks program</li>
+                        <li>• 5-6 sessions per week</li>
+                        <li>• Expert coaching</li>
+                        <li>• Competition preparation</li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">View Program</button>
+                </div>
+
+                <!-- Home Workout -->
+                <div class="workout-card bg-white rounded-xl shadow-lg p-6 border border-gray-100 transition-all">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e2deafeb-7451-473a-b2c6-7d5325d5d4e6.png" alt="Home workout setup with minimal equipment showing bodyweight exercises in comfortable living space" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Home Workout Program</h3>
+                    <p class="text-gray-600 mb-4">Effective workouts you can do anywhere with minimal equipment for maximum results.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• No equipment needed</li>
+                        <li>• 20-30 minutes sessions</li>
+                        <li>• Space efficient</li>
+                        <li>• Family friendly</li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">View Program</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diet Plans Section -->
+    <section id="diet" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Personalized Diet Plans</h2>
+            <p class="text-gray-600 text-center mb-12">Custom nutrition plans based on your body needs and budget preferences</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-utensils text-4xl text-purple-600 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Budget Friendly</h3>
+                    </div>
+                    <p class="text-gray-600 text-center">Healthy eating doesn't have to be expensive. Get nutritious meal plans that fit your budget.</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-heart text-4xl text-red-500 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Health Focused</h3>
+                    </div>
+                    <p class="text-gray-600 text-center">Plans designed for specific health conditions and nutritional requirements.</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-bolt text-4xl text-yellow-500 mb-3"></i>
+                        <h3 class="text-xl font-semibold">Performance Based</h3>
+                    </div>
+                    <p class="text-gray-600 text-center">Optimize your nutrition for maximum athletic performance and recovery.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+                <h3 class="text-2xl font-semibold mb-6 text-center">Get Your Personalized Diet Plan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Weekly Budget (₹)</label>
+                        <select class="w-full p-3 border rounded-lg calculator-input">
+                            <option>Under ₹1000</option>
+                            <option>₹1000 - ₹2000</option>
+                            <option>₹2000 - ₹3000</option>
+                            <option>Above ₹3000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Diet Preference</label>
+                        <select class="w-full p-3 border rounded-lg calculator-input">
+                            <option>Vegetarian</option>
+                            <option>Non-Vegetarian</option>
+                            <option>Vegan</option>
+                            <option>Keto</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Goal</label>
+                        <select class="w-full p-3 border rounded-lg calculator-input">
+                            <option>Weight Loss</option>
+                            <option>Muscle Gain</option>
+                            <option>Maintenance</option>
+                            <option>General Health</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Allergies/Restrictions</label>
+                        <input type="text" placeholder="e.g., gluten, dairy" class="w-full p-3 border rounded-lg calculator-input">
+                    </div>
+                </div>
+                <button class="w-full bg-purple-600 text-white py-3 rounded-lg mt-6 hover:bg-purple-700">
+                    Generate My Diet Plan
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section id="calculators" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Health Calculators</h2>
+            <p class="text-gray-600 text-center mb-12">Track your progress with our accurate health calculators</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- BMI Calculator -->
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6">BMI Calculator</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                            <input type="number" id="weight" placeholder="Enter weight" class="w-full p-3 border rounded-lg calculator-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                            <input type="number" id="height" placeholder="Enter height" class="w-full p-3 border rounded-lg calculator-input">
+                        </div>
+                        <button onclick="calculateBMI()" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
+                            Calculate BMI
+                        </button>
+                        <div id="bmiResult" class="mt-4 p-4 bg-white rounded-lg hidden">
+                            <h4 class="font-semibold mb-2">Your Results:</h4>
+                            <p id="bmiValue" class="text-lg"></p>
+                            <p id="bmiCategory" class="text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Body Fat Calculator -->
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6">Body Fat Calculator</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                            <input type="number" id="age" placeholder="Enter age" class="w-full p-3 border rounded-lg calculator-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                            <select id="gender" class="w-full p-3 border rounded-lg calculator-input">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Waist Circumference (cm)</label>
+                            <input type="number" id="waist" placeholder="Enter measurement" class="w-full p-3 border rounded-lg calculator-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                            <input type="number" id="fatWeight" placeholder="Enter weight" class="w-full p-3 border rounded-lg calculator-input">
+                        </div>
+                        <button onclick="calculateBodyFat()" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
+                            Calculate Body Fat
+                        </button>
+                        <div id="bodyFatResult" class="mt-4 p-4 bg-white rounded-lg hidden">
+                            <h4 class="font-semibold mb-2">Your Results:</h4>
+                            <p id="bodyFatValue" class="text-lg"></p>
+                            <p id="bodyFatCategory" class="text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Fitness Shop</h2>
+            <p class="text-gray-600 text-center mb-12">Premium quality fitness products and accessories</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-xl p-6 shadow-lg">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8ffeb6b5-d1ef-445c-ae3c-e4e335d3e404.png" alt="Professional fitness gear including resistance bands, gloves, and accessories arranged neatly" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Premium Gym Accessories Kit</h3>
+                    <p class="text-gray-600 mb-4">Complete set of professional gym accessories for optimal training.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-purple-600">₹2,499</span>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-xl p-6 shadow-lg">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8c25faa0-b1c3-4984-96f1-41bdf7f1337f.png" alt="Collection of high-quality workout apparel including t-shirts and shorts in various colors" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Performance Workout Wear</h3>
+                    <p class="text-gray-600 mb-4">Breathable and comfortable workout clothing for maximum performance.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-purple-600">₹1,799</span>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-xl p-6 shadow-lg">
+                    <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c8ca5e31-512b-4e73-9480-8bc0c9fb9161.png" alt="Home gym equipment including adjustable dumbbells, yoga mat, and fitness tracker" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Home Gym Essentials Pack</h3>
+                    <p class="text-gray-600 mb-4">Everything you need for an effective home workout setup.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-purple-600">₹4,999</span>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">24/7 Support</h2>
+            <p class="text-gray-600 text-center mb-12">We're here to help you on your fitness journey</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-telegram text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Telegram Support</h3>
+                    <p class="text-gray-600">Join our community for daily tips and support</p>
+                    <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        Join Channel
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-instagram text-3xl text-pink-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Instagram</h3>
+                    <p class="text-gray-600">Follow for workout inspiration and updates</p>
+                    <button class="mt-4 bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">
+                        Follow Us
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-whatsapp text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">WhatsApp Support</h3>
+                    <p class="text-gray-600">Instant messaging support for quick questions</p>
+                    <button class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                        Message Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">FitPro</h3>
+                    <p class="text-gray-400">Your complete fitness solution for training, nutrition, and support.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#workouts" class="text-gray-400 hover:text-white">Workouts</a></li>
+                        <li><a href="#diet" class="text-gray-400 hover:text-white">Diet Plans</a></li>
+                        <li><a href="#calculators" class="text-gray-400 hover:text-white">Calculators</a></li>
+                        <li><a href="#shop" class="text-gray-400 hover:text-white">Shop</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#support" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe for fitness tips and updates</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="bg-gray-700 text-white px-3 py-2 rounded-l-lg w-full">
+                        <button class="bg-purple-600 px-4 py-2 rounded-r-lg hover:bg-purple-700">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2024 FitPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Authentication Modal
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+        });
+
+        document.getElementById('signupBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        });
+
+        document.getElementById('closeAuth').addEventListener('click', function() {
+            document.getElementById('authModal').classList.add('hidden');
+        });
+
+        document.getElementById('showSignup').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+        });
+
+        document.getElementById('showLogin').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        });
+
+        document.getElementById('sendOtp').addEventListener('click', function() {
+            document.getElementById('otpSection').classList.remove('hidden');
+        });
+
+        // BMI Calculator
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // convert cm to m
+            
+            if (weight && height) {
+                const bmi = weight / (height * height);
+                const resultDiv = document.getElementById('bmiResult');
+                const bmiValue = document.getElementById('bmiValue');
+                const bmiCategory = document.getElementById('bmiCategory');
+                
+                bmiValue.textContent = `BMI: ${bmi.toFixed(1)}`;
+                
+                if (bmi < 18.5) {
+                    bmiCategory.textContent = 'Category: Underweight';
+                    bmiCategory.className = 'text-sm text-blue-600';
+                } else if (bmi < 25) {
+                    bmiCategory.textContent = 'Category: Normal weight';
+                    bmiCategory.className = 'text-sm text-green-600';
+                } else if (bmi < 30) {
+                    bmiCategory.textContent = 'Category: Overweight';
+                    bmiCategory.className = 'text-sm text-yellow-600';
+                } else {
+                    bmiCategory.textContent = 'Category: Obesity';
+                    bmiCategory.className = 'text-sm text-red-600';
+                }
+                
+                resultDiv.classList.remove('hidden');
+            }
+        }
+
+        // Body Fat Calculator
+        function calculateBodyFat() {
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const waist = parseFloat(document.getElementById('waist').value);
+            const weight = parseFloat(document.getElementById('fatWeight').value);
+            
+            if (age && waist && weight) {
+                let bodyFat;
+                if (gender === 'male') {
+                    bodyFat = (495 / (1.0324 - 0.19077 * Math.log10(waist) + 0.15456 * Math.log10(height))) - 450;
+                } else {
+                    bodyFat = (495 / (1.29579 - 0.35004 * Math.log10(waist) + 0.22100 * Math.log10(height))) - 450;
+                }
+                
+                const resultDiv = document.getElementById('bodyFatResult');
+                const bodyFatValue = document.getElementById('bodyFatValue');
+                const bodyFatCategory = document.getElementById('bodyFatCategory');
+                
+                bodyFatValue.textContent = `Body Fat: ${bodyFat.toFixed(1)}%`;
+                
+                if (gender === 'male') {
+                    if (bodyFat < 6) bodyFatCategory.textContent = 'Category: Essential fat';
+                    else if (bodyFat < 14) bodyFatCategory.textContent = 'Category: Athlete';
+                    else if (bodyFat < 18) bodyFatCategory.textContent = 'Category: Fitness';
+                    else if (bodyFat < 25) bodyFatCategory.textContent = 'Category: Average';
+                    else bodyFatCategory.textContent = 'Category: Obese';
+                } else {
+                    if (bodyFat < 14) bodyFatCategory.textContent = 'Category: Essential fat';
+                    else if (bodyFat < 21) bodyFatCategory.textContent = 'Category: Athlete';
+                    else if (bodyFat < 25) bodyFatCategory.textContent = 'Category: Fitness';
+                    else if (bodyFat < 32) bodyFatCategory.textContent = 'Category: Average';
+                    else bodyFatCategory.textContent = 'Category: Obese';
+                }
+                
+                bodyFatCategory.className = 'text-sm ' + (bodyFat < 25 ? 'text-green-600' : 'text-red-600');
+                resultDiv.classList.remove('hidden');
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a
